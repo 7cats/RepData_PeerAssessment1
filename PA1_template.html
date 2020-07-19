@@ -419,8 +419,8 @@ maxStepInterval &lt;- format(interval[which.max(patDaily)], format = &quot;%H:%M
 <h2>Imputing missing values</h2>
 <pre class="r"><code>countNA &lt;- sum(is.na(acti$steps))
 # filling the NA value with the mean of that interval
-filledData &lt;-data.frame(steps = acti$steps, intv = intervalNum)
-
+filledData &lt;-data.frame(steps = acti$steps, intv = intervalNum) # data to be filled
+# filling data
 stepsF &lt;- t(apply(filledData, MARGIN = 1, function(x, refData = patDailyDF)
                    {
                        if(is.na(x[1]))
@@ -434,7 +434,7 @@ stepsF &lt;- as.data.frame(cbind(stepsF,acti[&quot;date&quot;]))
 colnames(stepsF) &lt;- c(&quot;steps&quot;,&quot;interval&quot;,&quot;day&quot;)
 stepDayF &lt;- tapply(stepsF$steps, stepsF$day, sum, na.rm = TRUE)
 stepDayFDF &lt;- data.frame(stepDayF = stepDayF, Day = unique(acti$date))
-# plotting
+# plotting the histogram
 g &lt;- ggplot(stepDayFDF, aes(stepDayF))
 g + geom_histogram(binwidth = 1000) + labs(x = &quot;Total steps per day&quot;, 
                                            title = &quot;Histogram of Total steps taken per day&quot;)</code></pre>
