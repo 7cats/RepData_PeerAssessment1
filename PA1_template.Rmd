@@ -52,14 +52,21 @@ The daily maximum steps took within one interval is `r maxStep` and the interval
 ```{r}
 countNA <- sum(is.na(acti$steps))
 # filling the NA value with the mean of that interval
+<<<<<<< HEAD
 filledData <-data.frame(steps = acti$steps, intv = intervalNum) # data to be filled
 # filling data
 stepsF <- t(apply(filledData, MARGIN = 1, function(x, refData = patDailyDF)
+=======
+filledData <-data.frame(steps = acti$steps, intv = acti$interval)
+stepsFill <- apply(filledData,
+                   MARGIN = 1, FUN = function(x, refData = patDailyDF)
+>>>>>>> 0076fb0c0908ab06faab65cc7d8f7358006db712
                    {
                        if(is.na(x[1]))
                        {
                            x[1] <- refData$patternDaily [which(refData$interv %in% x[2])]
                        }
+<<<<<<< HEAD
                        return(t(x))
                    }
 ))
@@ -71,6 +78,14 @@ stepDayFDF <- data.frame(stepDayF = stepDayF, Day = unique(acti$date))
 g <- ggplot(stepDayFDF, aes(stepDayF))
 g + geom_histogram(binwidth = 1000) + labs(x = "Total steps per day", 
                                            title = "Histogram of Total steps taken per day")
+=======
+                   }
+)
+
+
+
+```
+>>>>>>> 0076fb0c0908ab06faab65cc7d8f7358006db712
 
 stepDayFAve <- mean(stepDayF, na.rm = T)
 stepDayFMed <- median(stepDayF, na.rm = T)

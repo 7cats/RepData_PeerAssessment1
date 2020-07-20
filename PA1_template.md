@@ -68,6 +68,7 @@ interval <- strptime(sprintf("%04d", acti$interval),format = "%H%M")
 intervalNum <- interval$hour*60 + interval$min
 patDaily <- tapply(acti$steps, acti$interval,mean,na.rm = TRUE)
 patDailyDF <- data.frame(patternDaily = patDaily, interv = unique(intervalNum))
+<<<<<<< HEAD
 
 g <- ggplot(patDailyDF, aes(x = factor(interv), y = patternDaily, group = 1))
 g + geom_line(size = 1) + labs(x = "Interval(hour)", y = "Steps", title = "Daily pattern of activity") +
@@ -77,6 +78,17 @@ g + geom_line(size = 1) + labs(x = "Interval(hour)", y = "Steps", title = "Daily
 
 ![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
+=======
+
+g <- ggplot(patDailyDF, aes(x = factor(interv), y = patternDaily, group = 1))
+g + geom_line(size = 1) + labs(x = "Interval(hour)", y = "Steps", title = "Daily pattern of activity") +
+  scale_x_discrete( breaks = as.character(seq(min(intervalNum),max(intervalNum+5),60*6)),
+                    labels = as.character(seq(min(intervalNum)/60,max(intervalNum+5)/60,6)) )
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+
+>>>>>>> 0076fb0c0908ab06faab65cc7d8f7358006db712
 ```r
 maxStep <- max(patDaily)
 maxStepInterval <- format(interval[which.max(patDaily)], format = "%H:%M")
@@ -116,6 +128,7 @@ stepDayFAve <- mean(stepDayF, na.rm = T)
 stepDayFMed <- median(stepDayF, na.rm = T)
 ```
 After the NAs data are filled, the average daily steps is 1.0766189\times 10^{4} and the median of daily steps is 1.0766189\times 10^{4}. The value is different from result calculated by unfilled data. 
+
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
